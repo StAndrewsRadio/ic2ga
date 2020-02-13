@@ -1,0 +1,43 @@
+<config>
+    <!-- Number of seconds to wait in between each update !-->
+    <refreshRate>5</refreshRate>
+
+    <servers>
+        <server>
+            <!-- The base URL that people use to listen to the stream. When the mountpoint name is appended this should
+                 be what your users use to listen to the stream. !-->
+            <listenUrl>radio.example.com</listenUrl>
+
+            <!-- The URL used to list the listeners for each mountpoint. This must be in XML format. !-->
+            <listMountsUrl>http://example.com/icecast/listmounts?mount=</listMountsUrl>
+
+            <!-- Some URL to retrieve the current show name. If this is removed or left blank, the show name will
+                 default to "autofade". The show name is logged to the Custom Dimension at index 1. Additionally, the
+                 lag for each listener is logged to the Custom Dimension at index 2. !-->
+            <showLogUrl>https://example.com/some_script.php</showLogUrl>
+
+            <!-- If you use HTTP Basic Authentication to protect your Icecast admin panel, place the username and
+                 password here. You may leave these fields blank or remove them if you don't need them. !-->
+            <username>username</username>
+            <password>password</password>
+
+            <mountpoints>
+                <mountpoint>
+                    <!-- The name of the mountpoint. This is combined directly with the listMountsUrl to retrieve
+                         listener statistics. !-->
+                    <name>/stream</name>
+
+                    <!-- The "friendly" name of the mountpoint. This is recorded as the document title. !-->
+                    <friendlyName>Stream</friendlyName>
+
+                    <!-- The tracking ID to use when reporting the statistics for this mountpoint !-->
+                    <trackingId>UA-xxxxxxx-x</trackingId>
+                </mountpoint>
+
+                <!-- You may have as many mountpoints as you desire... !-->
+            </mountpoints>
+        </server>
+
+        <!-- You may have as many servers as you desire... !-->
+    </servers>
+</config>
