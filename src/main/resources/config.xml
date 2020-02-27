@@ -2,6 +2,13 @@
     <!-- Number of seconds to wait in between each update !-->
     <refreshRate>5</refreshRate>
 
+    <!-- If you want to spin up a basic HTTP server, enable this and set the port. This will allow you to
+         remotely check if ic2ga is up using whatever uptime robot you use. !-->
+    <status>
+        <enabled>false</enabled>
+        <port>8080</port>
+    </status>
+
     <servers>
         <server>
             <!-- The base URL that people use to listen to the stream. When the mountpoint name is appended this should

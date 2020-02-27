@@ -24,6 +24,7 @@ public class IC2GA extends TimerTask {
     private final ObjectMapper xmlMapper;
     private final Config config;
     private final HttpClient httpClient;
+    private final StatusChecker statusChecker;
 
     private Timer timer =  null;
 
@@ -34,11 +35,17 @@ public class IC2GA extends TimerTask {
         xmlMapper = new XmlMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         config = xmlMapper.readValue(configFile, Config.class);
         httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).build();
+        statusChecker = config.getStatus().isEnabled() ? new StatusChecker(config.getStatus()) : null;
 
         System.out.println("Created IC2GA instance...");
     }
 
     public void start() {
+        if (statusChecker != null) {
+            statusChecker.start();
+            System.out.println("Started status checker!");
+        }
+
         if (timer != null) {
             timer.cancel();
         }
@@ -146,7 +153,7 @@ public class IC2GA extends TimerTask {
 
                     Listener listener = icestats.getSource().getListener().get(i);
 
-                    System.out.println(listener);
+                    System.out.println("        " + listener);
 
                     if (listener.getIp() == null || listener.getIp().trim().equals("127.0.0.1")) {
                         System.out.println("        Skipping local listener...");
